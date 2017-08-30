@@ -76,13 +76,12 @@ WSGI_APPLICATION = 'colect_livros.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'colect_livros',
-        # 'NAME': os.path.join(BASE_DIR, 'mydb'),
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
-        'PORT': '5432', # 8000 is default
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'teste_django',
+        'USER': 'root',
+        'PASSWORD': 'Aeeg143561',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
