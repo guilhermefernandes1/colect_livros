@@ -6,10 +6,7 @@ def show_livros(request):
     template = 'livros/show_books.html'
     template_negado = 'livros/negado.html'
 
-    if 'email' not in request.session:
-        return render(request, template_negado)
-
-    elif request.session['email'] is None:
+    if 'email' not in request.session or request.session['email'] is None:
         return render(request, template_negado)
 
     else:

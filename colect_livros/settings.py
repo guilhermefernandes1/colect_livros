@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'colect_livros.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DJANGO_DB_ENGINE', 'django.db.backends.mysql'),
-        'NAME': os.getenv('DJANGO_DB_NAME', 'teste_django'),
-        'USER': os.getenv('DJANGO_DB_USER', 'root'),
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', 'Aeeg143561'),
-        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),   # Or an IP Address that your DB is hosted on
-        'PORT': os.getenv('DJANGO_DB_PORT', '3306'),
+        'ENGINE': os.getenv('DJANGO_DB_ENGINE'),
+        'NAME': os.getenv('DJANGO_DB_NAME'),
+        'USER': os.getenv('DJANGO_DB_USER'),
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
+        'HOST': os.getenv('DJANGO_DB_HOST'),   # Or an IP Address that your DB is hosted on
+        'PORT': os.getenv('DJANGO_DB_PORT'),
     }
 }
 
