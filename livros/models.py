@@ -13,4 +13,3 @@ class Livros(models.Model):
     class Meta:
         managed = False
         db_table = 'livros'
-

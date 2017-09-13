@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate
+
 from .models import Livros
 
 
@@ -6,7 +8,7 @@ def show_livros(request):
     template = 'livros/show_books.html'
     template_negado = 'livros/negado.html'
 
-    if 'email' not in request.session or request.session['email'] is None:
+    if 'username' not in request.session or request.session['username'] is None:
         return render(request, template_negado)
 
     else:
@@ -18,10 +20,20 @@ def show_livros(request):
 
 
 def login(request):
-    request.session['email'] = 'guilhermefernandes1@gmail.com'
-    template = 'livros/login.html'
+    template_nao_logado = 'livros/login.html'
+    template_logado = 'livros/show_books.html'
 
-    return render(request, template)
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(request, username=username, password=password)
+
+    if user is None:
+        return render(request, template_nao_logado)
+
+    else:
+        request.session['username'] = username
+        return render(request, template_logado)
 
 
 def logout(request):
