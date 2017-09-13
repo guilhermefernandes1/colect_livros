@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate
+from django.views.decorators.http import require_http_methods
 
 from .models import Livros
 
@@ -19,21 +20,26 @@ def show_livros(request):
         return render(request, template, context)
 
 
+@require_http_methods(["GET", "POST"])
 def login(request):
     template_nao_logado = 'livros/login.html'
     template_logado = 'livros/show_books.html'
 
-    username = request.POST['username']
-    password = request.POST['password']
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
 
-    user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, password=password)
 
-    if user is None:
-        return render(request, template_nao_logado)
+        if user is None:
+            return render(request, template_nao_logado, context={})
+
+        else:
+            request.session['username'] = username
+            return render(request, template_logado, context={})
 
     else:
-        request.session['username'] = username
-        return render(request, template_logado)
+        return render(request, template_nao_logado, context={})
 
 
 def logout(request):
