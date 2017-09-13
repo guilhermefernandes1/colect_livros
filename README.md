@@ -1,4 +1,4 @@
-# colect_livros
+# collect_livros
 Simples repositório para treinar o uso de sessions de Django framework
 
 App terá apenas uma página para listar livros cadastrados em uma base de dados. Esta lista será mostrada se o usuário
