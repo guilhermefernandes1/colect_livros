@@ -78,3 +78,9 @@ class LivroLoginViewTests(TestCase):
                                                                    })
 
         self.assertTemplateUsed(response, 'livros/show_books.html')
+
+
+# class LivroLogoutViewTests(TestCase):
+#
+#     def test_logout_(self):
+

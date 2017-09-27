@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate
+from django.contrib.auth import logout, login
 from django.views.decorators.http import require_http_methods
 
 from .models import Livros
@@ -21,7 +22,7 @@ def show_livros(request):
 
 
 @require_http_methods(["GET", "POST"])
-def login(request):
+def log_in(request):
     template_nao_logado = 'livros/login.html'
     template_logado = 'livros/show_books.html'
 
@@ -35,15 +36,15 @@ def login(request):
             return render(request, template_nao_logado, context={})
 
         else:
-            request.session['username'] = username
+            login(request, user)
             return render(request, template_logado, context={})
 
     else:
         return render(request, template_nao_logado, context={})
 
 
-def logout(request):
-    request.session['email'] = None
+def log_out(request):
     template = 'livros/logout.html'
+    logout(request)
 
     return render(request, template)
