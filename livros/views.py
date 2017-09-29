@@ -2,23 +2,21 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 
 from .models import Livros
 
 
+@login_required(login_url='/livros/login/')
 def show_livros(request):
     template = 'livros/show_books.html'
-    template_negado = 'livros/negado.html'
+    # template_negado = 'livros/negado.html'
 
-    if 'username' not in request.session or request.session['username'] is None:
-        return render(request, template_negado)
-
-    else:
-        book_list = Livros.objects.all()
-        context = {
-            'book_list': book_list,
-        }
-        return render(request, template, context)
+    book_list = Livros.objects.all()
+    context = {
+        'book_list': book_list,
+    }
+    return render(request, template, context)
 
 
 @require_http_methods(["GET", "POST"])
