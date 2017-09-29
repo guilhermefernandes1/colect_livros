@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 from .models import Livros
 
@@ -10,7 +11,6 @@ from .models import Livros
 @login_required(login_url='/livros/login/')
 def show_livros(request):
     template = 'livros/show_books.html'
-    # template_negado = 'livros/negado.html'
 
     book_list = Livros.objects.all()
     context = {
@@ -22,7 +22,6 @@ def show_livros(request):
 @require_http_methods(["GET", "POST"])
 def log_in(request):
     template_nao_logado = 'livros/login.html'
-    template_logado = 'livros/show_books.html'
 
     if request.method == 'POST':
         username = request.POST['username']
@@ -35,14 +34,13 @@ def log_in(request):
 
         else:
             login(request, user)
-            return render(request, template_logado, context={})
+            return redirect('livros:show_livros')
 
     else:
         return render(request, template_nao_logado, context={})
 
 
 def log_out(request):
-    template = 'livros/logout.html'
     logout(request)
 
-    return render(request, template)
+    return redirect('livros:show_livros')
