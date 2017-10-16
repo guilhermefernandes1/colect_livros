@@ -1,9 +1,15 @@
-{% if book_list %}
-    <ul>
-    {% for book in book_list %}
-        <li>{{ book }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Nenhum livro encontrado</p>
-{% endif %}
+{% extends "livros/base.html" %}
+{% block content %}
+    {% if book_list %}
+        <ul>
+        {% for book in book_list %}
+            <li class="list-group-item">{{ book }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum livro encontrado</p>
+    {% endif %}
+    <div id="browse_app">
+        <a class="btn btn-default" href="/livros/add/">Adicionar</a>
+    </div>
+{% endblock %}

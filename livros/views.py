@@ -6,9 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 from .models import Livros
+from .forms import LoginForm, AddBookForm
+
+LOGIN_URL = '/livros/login/'
 
 
-@login_required(login_url='/livros/login/')
+@login_required(login_url=LOGIN_URL)
 def show_livros(request):
     template = 'livros/show_books.html'
 
@@ -24,23 +27,43 @@ def log_in(request):
     template_nao_logado = 'livros/login.html'
 
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        form = LoginForm(request.POST)
 
-        user = authenticate(request, username=username, password=password)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
-        if user is None:
-            return render(request, template_nao_logado, context={})
+            user = authenticate(request, username=username, password=password)
 
-        else:
-            login(request, user)
-            return redirect('livros:show_livros')
+            if user is None:
+                return render(request, template_nao_logado, context={})
+
+            else:
+                login(request, user)
+                return redirect('livros:show_livros')
 
     else:
-        return render(request, template_nao_logado, context={})
+        form = LoginForm()
+        return render(request, template_nao_logado, {"form": form})
 
 
 def log_out(request):
     logout(request)
 
     return redirect('livros:show_livros')
+
+
+@require_http_methods(["GET", "POST"])
+@login_required(login_url=LOGIN_URL)
+def add_book(request):
+    template = 'livros/add.html'
+
+    if request.method == 'POST':
+        book = AddBookForm(request.POST)
+
+        if book.is_valid():
+            book.save()
+
+    form = AddBookForm()
+
+    return render(request, template, {'form': form})
