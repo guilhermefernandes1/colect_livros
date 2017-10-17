@@ -13,7 +13,7 @@ export DJANGO_DB_NAME='colect_livros'
 
 export DJANGO_DB_USER='postgres'
 
-export DJANGO_DB_PASSWORD='Aeeg143561'
+export DJANGO_DB_PASSWORD=<password>
 
 export DJANGO_DB_HOST='127.0.0.1'
 
