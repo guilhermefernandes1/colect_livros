@@ -6,9 +6,9 @@ export DJANGO_DB_HOST='127.0.0.1'
 export DJANGO_DB_PORT='5432'
 
 
-export DJANGO_DB_ENGINE: django.db.backends.mysql
-export DJANGO_DB_NAME: teste_django
-export DJANGO_DB_USER: root
-export DJANGO_DB_PASSWORD: <password>
-export DJANGO_DB_HOST: localhost
-export DJANGO_DB_PORT: 3306
+export DJANGO_DB_ENGINE=django.db.backends.mysql
+export DJANGO_DB_NAME=teste_django
+export DJANGO_DB_USER=root
+export DJANGO_DB_PASSWORD=Aeeg143561
+export DJANGO_DB_HOST=localhost
+export DJANGO_DB_PORT=3306

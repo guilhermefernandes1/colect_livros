@@ -26,8 +26,13 @@
 
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/livros/logout"> <span class="glyphicon glyphicon-log-in"></span>
+                {% if request.user.is_authenticated %}
+                    <li><a href="/livros/logout"> <span class="glyphicon glyphicon-log-out"></span>
                                                                         Log out</a></li>
+                {% else %}
+                    <li><a href="/livros/login"> <span class="glyphicon glyphicon-log-in"></span>
+                                                                        Log in</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
